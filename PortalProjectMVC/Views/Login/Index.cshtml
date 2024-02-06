@@ -1,0 +1,64 @@
+﻿@model PortalProjectMVC.Models.UserViewModel
+
+@{
+    ViewBag.Title = "Login";
+}
+
+<h2>Login</h2>
+
+@using (Html.BeginForm("Index", "Login", FormMethod.Post, new { id = "loginForm" }))
+{
+    <div class="form-outline mb-4">
+        @Html.LabelFor(model => model.UserName, "E-Mail")
+        @Html.TextBoxFor(model => model.UserName)
+    </div>
+
+    <div class="row mb-4">
+        <div class="col d-flex justify-content-center">
+            <!-- Checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" value="" id="form2Example31" name="rememberMe" checked />
+                <label class="form-check-label" for="form2Example31"> Remember me </label>
+            </div>
+        </div>
+
+        <div class="col">
+            <!-- Simple link -->
+            <a href="#!">Forgot password?</a>
+        </div>
+    </div>
+
+    <button type="button" class="btn btn-primary btn-block mb-4" onclick="submitForm()">Sign in</button>
+
+    <div class="text-center">
+        <p>Not a member? <a href="#!">Register</a></p>
+        <p>or sign up with:</p>
+        <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-facebook-f"></i>
+        </button>
+
+        <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-google"></i>
+        </button>
+
+        <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-twitter"></i>
+        </button>
+
+        <button type="button" class="btn btn-link btn-floating mx-1">
+            <i class="fab fa-github"></i>
+        </button>
+    </div>
+}
+
+<script>
+    function submitForm() {
+        var form = document.getElementById("loginForm");
+        var formData = new FormData(form);
+
+        // Form verilerini ekrana logla (sunucuya göndermek için kullanılabilir)
+        for (var pair of formData.entries()) {
+            console.log(pair[0] + ': ' + pair[1]);
+        }
+    }
+</script>
