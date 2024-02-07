@@ -136,8 +136,10 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\AboutController.cs" />
     <Compile Include="Controllers\AuthorController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="Controllers\BlogController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />
+    <Compile Include="Controllers\ChartController.cs" />
     <Compile Include="Controllers\CommentController.cs" />
     <Compile Include="Controllers\ContactController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
@@ -146,6 +148,8 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\ChartCategory.cs" />
+    <Compile Include="Models\ChartBlogRate.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -2483,11 +2487,20 @@
     <Content Include="Views\Comment\AdminCommentListFalse.cshtml" />
     <Content Include="Views\Category\AdminCategoryList.cshtml" />
     <Content Include="Views\Blog\AdminBlogList2.cshtml" />
-    <Content Include="Views\About\UpdateAbout.cshtml" />
+    <Content Include="Views\About\UpdateAboutList.cshtml" />
+    <Content Include="Views\Contact\SendBox.cshtml" />
+    <Content Include="Views\Contact\MessageDetails.cshtml" />
+    <Content Include="Views\Chart\Index.cshtml" />
+    <Content Include="Views\Chart\Chart1.cshtml" />
+    <Content Include="Views\Chart\Chart2.cshtml" />
+    <Content Include="Views\Chart\Chart3.cshtml" />
+    <Content Include="Views\Shared\_AuthorLayout.cshtml" />
+    <Content Include="Views\User\Index.cshtml" />
+    <Content Include="Views\Login\AuthorLogin.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Models\" />
+    <Folder Include="Views\AuthorLogin\" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.rtl.min.css.map" />

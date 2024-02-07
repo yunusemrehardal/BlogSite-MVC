@@ -17,7 +17,8 @@ namespace EntityLayer.Concrete
 		public string BlogImage { get; set; }
 		public DateTime BlogDate { get; set; }
 		public string BlogContent { get; set; }
-		public int CategoryId { get; set; }
+        public int BlogRating { get; set; }
+        public int CategoryId { get; set; }
 
 		//İlişkili olduğunu belirtir.
 		public virtual Category Category { get; set; }

@@ -14,25 +14,10 @@ namespace PortalProjectMVC.Controllers
 		Context db = new Context();
 
 		// GET: Login
-		public ActionResult Index()
+		public ActionResult AuthorLogin()
 		{
 			return View();
 		}
-		//[HttpPost]
-		//public ActionResult Index(UserViewModel userViewModel)
-		//{
-		//	var userInDb = db.Authors.FirstOrDefault(x => x.AuthorName == userViewModel.UserName);
-
-		//	if (userInDb != null)
-		//	{
-		//		FormsAuthentication.SetAuthCookie(userViewModel.UserName, false);
-		//		return RedirectToAction("Index", "Blog");
-		//	}
-		//	else
-		//	{
-		//		ViewBag.Message = "Invalid username.";
-		//		return View();
-		//	}
-		//}
+		
 	}
 }

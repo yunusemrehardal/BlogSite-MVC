@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -27,9 +28,17 @@ namespace PortalProjectMVC.Controllers
 			var authorList = authorManager.GetAll();
 			return PartialView(authorList);
 		}
-		public ActionResult UpdateAbout()
+		[HttpGet]
+		public ActionResult UpdateAboutList()
 		{
-			return View();
+			var aboutList = aboutManager.GetAll();
+			return View(aboutList);
+		}
+		[HttpPost]
+		public ActionResult UpdateAbout(About p)
+		{
+			aboutManager.UpdateAboutBM(p);
+			return RedirectToAction("UpdateAboutList");
 		}
 	}
 }

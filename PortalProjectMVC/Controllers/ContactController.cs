@@ -27,5 +27,15 @@ namespace PortalProjectMVC.Controllers
 			cm.BLContactAdd(p);
 			return View();
 		}
+		public ActionResult SendBox()
+		{
+			var messageList = cm.GetAll();
+			return View(messageList);
+		}
+		public ActionResult MessageDetails(int id)
+		{
+			Contact contact = cm.GetContactDetails(id);
+			return View(contact);
+		}
 	}
 }
