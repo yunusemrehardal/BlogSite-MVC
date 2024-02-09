@@ -1,17 +1,22 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Security;
 
 namespace PortalProjectMVC.Controllers
 {
+	[Authorize]
 	public class UserController : Controller
 	{
 		// GET: AuthorLogin
 		UserProfileManager userProfileManager = new UserProfileManager();
+		BlogManager bm = new BlogManager();
+
 		public ActionResult Index()
 		{
 			return View();
@@ -22,6 +27,12 @@ namespace PortalProjectMVC.Controllers
 			var model = userProfileManager.GetAuthorByMail(userMail);
 			return PartialView(model);
 		}
+		public ActionResult UpdateUserProfile(Author author)
+		{
+			userProfileManager.EditAuthor(author);
+			return RedirectToAction("Index");
+		}
+
 		public ActionResult BlogList(string user)
 		{
 			Context context = new Context();
@@ -29,6 +40,71 @@ namespace PortalProjectMVC.Controllers
 			int id = context.Authors.Where(x => x.Mail == user).Select(y => y.AuthorId).FirstOrDefault();
 			var blogs = userProfileManager.GetBlogByAuthor(id);
 			return View(blogs);
+		}
+
+		[HttpGet]
+		public ActionResult UpdateBlog(int id)
+		{
+			Blog blog = bm.FindBlog(id);
+			Context context = new Context();
+			List<SelectListItem> categoryList = (from x in context.Categories.ToList()
+												 select new SelectListItem
+												 {
+													 Text = x.CategoryName,
+													 Value = x.CategoryId.ToString()
+												 }).ToList();
+			ViewBag.CategoryList = categoryList;
+
+			List<SelectListItem> authorList = (from x in context.Authors.ToList()
+											   select new SelectListItem
+											   {
+												   Text = x.AuthorName,
+												   Value = x.AuthorId.ToString()
+											   }).ToList();
+			ViewBag.AuthorList = authorList;
+			return View(blog);
+		}
+		[HttpPost]
+		public ActionResult UpdateBlog(Blog p)
+		{
+			bm.UpdateBlog(p);
+			return RedirectToAction("Bloglist");
+		}
+		public ActionResult AddBlog()
+		{
+			Context context = new Context();
+			List<SelectListItem> categoryList = (from x in context.Categories.ToList()
+												 select new SelectListItem
+												 {
+													 Text = x.CategoryName,
+													 Value = x.CategoryId.ToString()
+												 }).ToList();
+			ViewBag.CategoryList = categoryList;
+
+			List<SelectListItem> authorList = (from x in context.Authors.ToList()
+											   select new SelectListItem
+											   {
+												   Text = x.AuthorName,
+												   Value = x.AuthorId.ToString()
+											   }).ToList();
+			ViewBag.AuthorList = authorList;
+			return View();
+		}
+		[HttpPost]
+		public ActionResult AddBlog(Blog blog)
+		{
+			bm.BlogAddBL(blog);
+			return RedirectToAction("BlogList");
+		}
+		public ActionResult DeleteBlog(int id)
+		{
+			bm.DeleteBlog(id);
+			return RedirectToAction("BlogList");
+		}
+		public ActionResult LogOut()
+		{
+			FormsAuthentication.SignOut();
+			return RedirectToAction("AuthorLogin", "Login");
 		}
 	}
 }
