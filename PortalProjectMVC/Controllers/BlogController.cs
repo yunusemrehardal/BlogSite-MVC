@@ -15,16 +15,18 @@ namespace PortalProjectMVC.Controllers
 	{
 		BlogManager bm = new BlogManager();
 
-		//[Authorize]
+		[AllowAnonymous]
 		public ActionResult Index()
 		{
 			return View();
 		}
+		[AllowAnonymous]
 		public PartialViewResult BlogList(int page = 1)
 		{
 			var bloglist = bm.GetAll().ToPagedList(page, 6);
 			return PartialView(bloglist);
 		}
+		[AllowAnonymous]
 		public PartialViewResult FeaturedPost()
 		{
 			//Post1
@@ -88,22 +90,26 @@ namespace PortalProjectMVC.Controllers
 		{
 			return PartialView();
 		}
-
+		[AllowAnonymous]
 		public ActionResult BlogDetails()
 		{
 
 			return View();
 		}
+		[AllowAnonymous]
+
 		public PartialViewResult BlogCover(int id)
 		{
 			var BlogDetailsList = bm.GetBlogByID(id);
 			return PartialView(BlogDetailsList);
 		}
+		[AllowAnonymous]
 		public PartialViewResult BlogReadAll(int id)
 		{
 			var BlogDetailsList = bm.GetBlogByID(id);
 			return PartialView(BlogDetailsList);
 		}
+		[AllowAnonymous]
 		public ActionResult BlogByCategory(int id)
 		{
 			var BlogListByCategory = bm.GetBlogByCategory(id);
@@ -189,6 +195,11 @@ namespace PortalProjectMVC.Controllers
 			CommentManager cm = new CommentManager();
 			var commentlist = cm.CommentByBlog(id);
 			return View(commentlist);
+		}
+		public ActionResult AuthorBlogList(int id)
+		{
+			var blogs = bm.GetBlogByAuthor(id);
+			return View(blogs);
 		}
 	}
 }

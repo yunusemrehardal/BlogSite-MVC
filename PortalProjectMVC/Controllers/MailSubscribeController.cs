@@ -8,6 +8,7 @@ using System.Web.Mvc;
 
 namespace PortalProjectMVC.Controllers
 {
+	[AllowAnonymous]
 	public class MailSubscribeController : Controller
 	{
 		// GET: MailSubscribe

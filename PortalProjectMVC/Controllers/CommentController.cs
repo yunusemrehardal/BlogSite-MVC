@@ -12,11 +12,13 @@ namespace PortalProjectMVC.Controllers
 	{
 		// GET: Comment
 		CommentManager cm = new CommentManager();
+		[AllowAnonymous]
 		public PartialViewResult CommentList(int id)
 		{
 			var commentList = cm.CommentByBlog(id);
 			return PartialView(commentList);
 		}
+		[AllowAnonymous]
 		[HttpGet]
 		public PartialViewResult LeaveComment(int id)
 		{
@@ -26,6 +28,7 @@ namespace PortalProjectMVC.Controllers
 		[HttpPost]
 		public PartialViewResult LeaveComment(Comment c)
 		{
+			c.CommentStatus = true;
 			cm.CommentAdd(c);
 			return PartialView();
 		}

@@ -12,6 +12,7 @@ namespace PortalProjectMVC.Controllers
 	{
 		// GET: Contact
 		ContactManager cm = new ContactManager();
+		[AllowAnonymous]
 		public ActionResult Index()
 		{
 			return View();
@@ -21,6 +22,7 @@ namespace PortalProjectMVC.Controllers
 		{
 			return View();
 		}
+		[AllowAnonymous]
 		[HttpPost]
 		public ActionResult SendMessage(Contact p)
 		{

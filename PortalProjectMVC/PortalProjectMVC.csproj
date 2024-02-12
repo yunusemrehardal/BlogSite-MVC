@@ -2080,6 +2080,7 @@
     <Content Include="Templates\miniblog\images\person_3.jpg" />
     <Content Include="Templates\miniblog\images\person_4.jpg" />
     <Content Include="Templates\miniblog\images\person_5.jpg" />
+    <Content Include="Templates\miniblog\images\user.png" />
     <Content Include="Templates\miniblog\index.html" />
     <Content Include="Templates\miniblog\js\aos.js" />
     <Content Include="Templates\miniblog\js\bootstrap-datepicker.min.js" />
@@ -2631,6 +2632,7 @@
     <Content Include="Templates\login-form-20\scss\bootstrap\_variables.scss" />
     <Content Include="Templates\login-form-20\scss\style.scss" />
     <Content Include="Views\Login\AdminLogin.cshtml" />
+    <Content Include="Views\Blog\AuthorBlogList.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />

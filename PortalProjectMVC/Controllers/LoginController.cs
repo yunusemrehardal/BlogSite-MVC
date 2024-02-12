@@ -10,6 +10,7 @@ using System.Web.UI.WebControls;
 
 namespace PortalProjectMVC.Controllers
 {
+	[AllowAnonymous]
 	public class LoginController : Controller
 	{
 		Context context = new Context();
@@ -38,6 +39,21 @@ namespace PortalProjectMVC.Controllers
 		public ActionResult AdminLogin()
 		{
 			return View();
+		}
+		[HttpPost]
+		public ActionResult AdminLogin(Admin p)
+		{
+			var adminInfo = context.Admins.FirstOrDefault(x => x.UserName == p.UserName && x.Password == p.Password);
+			if (adminInfo != null)
+			{
+				FormsAuthentication.SetAuthCookie(adminInfo.UserName, false);
+				Session["UserName"] = adminInfo.UserName.ToString();
+				return RedirectToAction("AdminBlogList", "Blog");
+			}
+			else
+			{
+				return RedirectToAction("AdminLogin", "Login");
+			}
 		}
 	}
 }
