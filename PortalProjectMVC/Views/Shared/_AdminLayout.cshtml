@@ -94,14 +94,17 @@
 
                         <!-- Add icons to the links using the .nav-icon class
 
-    with font-awesome or any other icon font library -->
+                        with font-awesome or any other icon font library -->
 
-                        <li class="nav-item">
-                            <a href="/Blog/AdminBlogList" class="nav-link">
-                                <i class="nav-icon fas fa-th"></i>
-                                <p> Bloglar</p>
-                            </a>
-                        </li>
+                        @if (User.IsInRole("A"))
+                        {
+                            <li class="nav-item">
+                                <a href="/Blog/AdminBlogList" class="nav-link">
+                                    <i class="nav-icon fas fa-th"></i>
+                                    <p> Bloglar</p>
+                                </a>
+                            </li>
+                        }
                         <li class="nav-item">
                             <a href="/Blog/AdminBlogList2" class="nav-link">
                                 <i class="nav-icon fas fa-blog"></i>
@@ -230,7 +233,7 @@
                             </a>
                         </li>
                         <li class="nav-item">
-                            <a href="../widgets.html" class="nav-link">
+                            <a href="/User/Logout" class="nav-link">
                                 <i class="nav-icon fas fa-sign-out-alt"></i>
                                 <p> Çıkış Yap </p>
                             </a>

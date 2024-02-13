@@ -2,6 +2,7 @@
 @{
     ViewBag.Title = "AdminCategoryList";
     Layout = "~/Views/Shared/_AdminLayout.cshtml";
+    string color = "";
 }
 <!DOCTYPE html>
 <html>
@@ -44,6 +45,14 @@
                         @foreach (var item in Model)
                         {
                             <tr>
+                                @if (item.CategoryStatus == true)
+                                {
+                                    color = "badge badge-success";
+                                }
+                                @if (item.CategoryStatus == false)
+                                {
+                                    color = "badge badge-warning";
+                                }
                                 <td>
                                     @item.CategoryId
                                 </td>
@@ -64,14 +73,7 @@
                                     </ul>
                                 </td>
                                 <td class="project-state">
-                                    @*@if (item.CataStatus)
-                                    {
-                                        <span class="badge badge-success">@item.CataStatus</span>
-                                    }
-                                    else
-                                    {
-                                        <span class="badge badge-danger">@item.CataStatus</span>
-                                    }*@
+                                    <span class="@color">@item.CategoryStatus</span>
                                 </td>
                                 <td class="project-actions text-right">
                                     <a class="btn btn-primary btn-sm" href="/Blog/BlogByCategory/@item.CategoryId">
@@ -84,11 +86,14 @@
                                         </i>
                                         Düzenle
                                     </a>
-                                    <a class="btn btn-danger btn-sm" href="/Category/DeleteCategory/@item.CategoryId">
+                                    <a class="btn btn-danger btn-sm" href="/Category/CategoryDelete/@item.CategoryId">
                                         <i class="fas fa-trash"></i>
                                         Pasif Yap
                                     </a>
-                                    
+                                    <a class="btn btn-secondary btn-sm" href="/Category/StatusTrue/@item.CategoryId">
+                                        <i class="fas fa-plus"></i>
+                                        Aktif Yap
+                                    </a>
                                 </td>
                             </tr>
                         }

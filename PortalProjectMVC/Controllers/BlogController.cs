@@ -129,6 +129,7 @@ namespace PortalProjectMVC.Controllers
 			var blogList = bm.GetAll();
 			return View(blogList);
 		}
+		[Authorize(Roles ="A")]
 		[HttpGet]
 		public ActionResult AddNewBlog()
 		{
