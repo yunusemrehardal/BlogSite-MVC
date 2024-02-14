@@ -1,8 +1,10 @@
 ﻿using BusinessLayer.Concrete;
+using BusinessLayer.ValidationRules;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
+using FluentValidation.Results;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
@@ -12,7 +14,7 @@ namespace PortalProjectMVC.Controllers
 	public class CategoryController : Controller
 	{
 		// GET: Category
-		CategoryManager cm = new CategoryManager();
+		CategoryManager cm = new CategoryManager(new EfCategoryDal());
 		public ActionResult Index()
 		{
 			var categoryvalues = cm.GetAll();
@@ -32,8 +34,21 @@ namespace PortalProjectMVC.Controllers
 		[HttpPost]
 		public ActionResult AdminCategoryAdd(Category category)
 		{
-			cm.CategoryAddBL(category);
-			return RedirectToAction("AdminCategoryList");
+			CategoryValidator categoryValidator = new CategoryValidator();
+			ValidationResult results = categoryValidator.Validate(category);
+			if (results.IsValid)
+			{
+				cm.CategoryAddBL(category);
+				return RedirectToAction("AdminCategoryList");
+			}
+			else
+			{
+				foreach (var item in results.Errors)
+				{
+					ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+				}
+			}
+			return View();
 		}
 		[HttpGet]
 		public ActionResult CategoryEdit(int id)
@@ -44,8 +59,21 @@ namespace PortalProjectMVC.Controllers
 		[HttpPost]
 		public ActionResult CategoryEdit(Category category)
 		{
-			cm.EditCategory(category);
-			return RedirectToAction("AdminCategoryList");
+			CategoryValidator categoryValidator = new CategoryValidator();
+			ValidationResult results = categoryValidator.Validate(category);
+			if (results.IsValid)
+			{
+				cm.EditCategory(category);
+				return RedirectToAction("AdminCategoryList");
+			}
+			else
+			{
+				foreach (var item in results.Errors)
+				{
+					ModelState.AddModelError(item.PropertyName, item.ErrorMessage);
+				}
+			}
+			return View();
 		}
 		public ActionResult CategoryDelete(int id)
 		{
