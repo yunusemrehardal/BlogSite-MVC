@@ -1,51 +1,87 @@
-﻿using DataAccessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Xml.Linq;
 
 namespace BusinessLayer.Concrete
 {
-	public class CommentManager
+	public class CommentManager : ICommentService
 	{
-		Repository<Comment> repocomment = new Repository<Comment>();
+		ICommentDal _commentDal;
+
+		public CommentManager(ICommentDal commentDal)
+		{
+			_commentDal = commentDal;
+		}
+
 		public List<Comment> CommentList()
 		{
-			return repocomment.List();
+			return _commentDal.List();
 		}
 		public List<Comment> CommentByBlog(int id)
 		{
-			return repocomment.List(x => x.BlogId == id);
+			return _commentDal.List(x => x.BlogId == id);
 		}
 		public List<Comment> CommentByStatusTrue()
 		{
-			return repocomment.List(x => x.CommentStatus == true);
+			return _commentDal.List(x => x.CommentStatus == true);
 		}
 		public List<Comment> CommentByStatusFalse()
 		{
-			return repocomment.List(x => x.CommentStatus == false);
+			return _commentDal.List(x => x.CommentStatus == false);
 		}
-		public int CommentAdd(Comment comment)
+		public void CommentStatusChangeToFalse(int id)
 		{
-			if (comment.CommentText.Length <= 4 || comment.CommentText.Length >= 301 || comment.UserName == "" || comment.Mail == "" || comment.UserName.Length <= 2)
-			{
-				return -1;
-			}
-			return repocomment.Insert(comment);
-		}
-		public int CommentStatusChangeToFalse(int id)
-		{
-			Comment comment = repocomment.Find(x => x.CommentId == id);
+			Comment comment = _commentDal.Find(x => x.CommentId == id);
 			comment.CommentStatus = false;
-			return repocomment.Update(comment);
+			_commentDal.Update(comment);
 		}
-		public int CommentStatusChangeToTrue(int id)
+		public void CommentStatusChangeToTrue(int id)
 		{
-			Comment comment = repocomment.Find(x => x.CommentId == id);
+			Comment comment = _commentDal.Find(x => x.CommentId == id);
 			comment.CommentStatus = true;
-			return repocomment.Update(comment);
+			_commentDal.Update(comment);
+		}
+
+		public List<Comment> GetList()
+		{
+			return _commentDal.List();
+		}
+
+		public Comment GetByID(int id)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void CommentDelete(Comment comment)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void CommentUpdate(Comment comment)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void TAdd(Comment t)
+		{
+			_commentDal.Insert(t);
+		}
+
+		public void TDelete(Comment t)
+		{
+			throw new NotImplementedException();
+		}
+
+		public void TUpdate(Comment t)
+		{
+			throw new NotImplementedException();
 		}
 	}
 }

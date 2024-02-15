@@ -2236,7 +2236,6 @@
     <Content Include="Views\Blog\Index.cshtml" />
     <Content Include="Views\Blog\BlogList.cshtml" />
     <Content Include="Views\Blog\FeaturedPost.cshtml" />
-    <Content Include="Views\Blog\OutherFeaturedPost.cshtml" />
     <Content Include="Views\Blog\BlogDetails.cshtml" />
     <Content Include="Views\Blog\BlogCover.cshtml" />
     <Content Include="Views\Blog\BlogReadAll.cshtml" />
@@ -2245,7 +2244,6 @@
     <Content Include="Views\About\Footer.cshtml" />
     <Content Include="Views\Author\AuthorAbout.cshtml" />
     <Content Include="Views\Author\AuthorPopularPost.cshtml" />
-    <Content Include="Views\Category\Index.cshtml" />
     <Content Include="Views\Category\BlogDetailsCategoryList.cshtml" />
     <Content Include="Views\Comment\CommentList.cshtml" />
     <Content Include="Views\Comment\LeaveComment.cshtml" />

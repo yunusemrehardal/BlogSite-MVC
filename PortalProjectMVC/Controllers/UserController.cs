@@ -1,5 +1,6 @@
 ﻿using BusinessLayer.Concrete;
 using DataAccessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -15,7 +16,7 @@ namespace PortalProjectMVC.Controllers
 	{
 		// GET: AuthorLogin
 		UserProfileManager userProfileManager = new UserProfileManager();
-		BlogManager bm = new BlogManager();
+		BlogManager bm = new BlogManager(new EfBlogDal());
 
 		public ActionResult Index()
 		{
@@ -45,7 +46,7 @@ namespace PortalProjectMVC.Controllers
 		[HttpGet]
 		public ActionResult UpdateBlog(int id)
 		{
-			Blog blog = bm.FindBlog(id);
+			Blog blog = bm.GetByID(id);
 			Context context = new Context();
 			List<SelectListItem> categoryList = (from x in context.Categories.ToList()
 												 select new SelectListItem
@@ -67,7 +68,7 @@ namespace PortalProjectMVC.Controllers
 		[HttpPost]
 		public ActionResult UpdateBlog(Blog p)
 		{
-			bm.UpdateBlog(p);
+			bm.TUpdate(p);
 			return RedirectToAction("Bloglist");
 		}
 		public ActionResult AddBlog()
@@ -93,12 +94,13 @@ namespace PortalProjectMVC.Controllers
 		[HttpPost]
 		public ActionResult AddBlog(Blog blog)
 		{
-			bm.BlogAddBL(blog);
+			bm.TAdd(blog);
 			return RedirectToAction("BlogList");
 		}
 		public ActionResult DeleteBlog(int id)
 		{
-			bm.DeleteBlog(id);
+			Blog blog = bm.GetByID(id);
+			bm.TDelete(blog);
 			return RedirectToAction("BlogList");
 		}
 		public ActionResult LogOut()

@@ -39,8 +39,8 @@ namespace PortalProjectMVC.Roles
 		public override string[] GetRolesForUser(string username)
 		{
 			Context context = new Context();
-			var role = context.Admins.FirstOrDefault(x => x.UserName == username);
-			return new string[] { role.UserName };
+			var value = context.Admins.FirstOrDefault(x => x.UserName == username);
+			return new string[] { value.AdminRole };
 		}
 
 		public override string[] GetUsersInRole(string roleName)

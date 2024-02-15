@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -11,7 +12,7 @@ namespace PortalProjectMVC.Controllers
 	public class CommentController : Controller
 	{
 		// GET: Comment
-		CommentManager cm = new CommentManager();
+		CommentManager cm = new CommentManager(new EfCommentDal());
 		[AllowAnonymous]
 		public PartialViewResult CommentList(int id)
 		{
@@ -25,11 +26,12 @@ namespace PortalProjectMVC.Controllers
 			ViewBag.Id = id;
 			return PartialView();
 		}
+		[AllowAnonymous]
 		[HttpPost]
 		public PartialViewResult LeaveComment(Comment c)
 		{
 			c.CommentStatus = true;
-			cm.CommentAdd(c);
+			cm.TAdd(c);
 			return PartialView();
 		}
 		public ActionResult AdminCommentListTrue()

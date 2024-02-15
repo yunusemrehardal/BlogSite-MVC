@@ -1,4 +1,5 @@
-﻿using EntityLayer.Concrete;
+﻿using DataAccessLayer.Abstract;
+using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -7,12 +8,8 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Abstract
 {
-	public interface ICommentService
+	public interface ICommentService: IGenericService<Comment>
 	{
-		List<Comment> GetList();
-		void CommentAdd(Comment comment);
-		Comment GetByID(int id);
-		void CommentDelete(Comment comment);
-		void CommentUpdate(Comment comment);
+	
 	}
 }

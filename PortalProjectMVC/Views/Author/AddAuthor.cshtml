@@ -11,6 +11,7 @@
 <form class="form-group" method="post">
     <label>Yazar Adı Soyad</label>
     @Html.TextBoxFor(x => x.AuthorName, new { @class = "form-control" })
+    @Html.ValidationMessageFor(x => x.AuthorName)
     <br />
     <label>Resim Yolu</label>
     @Html.TextBoxFor(x => x.AuthorImage, new { @class = "form-control" })

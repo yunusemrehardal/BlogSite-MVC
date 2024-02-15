@@ -1,4 +1,6 @@
-﻿using DataAccessLayer.Concrete;
+﻿using BusinessLayer.Abstract;
+using DataAccessLayer.Abstract;
+using DataAccessLayer.Concrete;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -8,37 +10,37 @@ using System.Threading.Tasks;
 
 namespace BusinessLayer.Concrete
 {
-	public class AuthorManager
+	public class AuthorManager : IAuthorService
 	{
-		Repository<Author> repoAuthor = new Repository<Author>();
-		public List<Author> GetAll()
+		IAuthorDal _authorDal;
+
+		public AuthorManager(IAuthorDal authorDal)
 		{
-			return repoAuthor.List();
+			_authorDal = authorDal;
 		}
-		public int AddAuthorBL(Author p)
+		public List<Author> GetList()
 		{
-			if (p.AuthorName == "" || p.AboutShort == "" || p.AuthorTitle == "")
-			{
-				return -1;
-			}
-			return repoAuthor.Insert(p);
+			return _authorDal.List();
 		}
-		public Author FindAuthor(int id)
+
+		public Author GetByID(int id)
 		{
-			return repoAuthor.Find(x => x.AuthorId == id);
+			return _authorDal.GetById(id);
 		}
-		public int EditAuthor(Author p)
+
+		public void TAdd(Author t)
 		{
-			Author author = repoAuthor.Find(x => x.AuthorId == p.AuthorId);
-			author.AboutShort = p.AboutShort;
-			author.AuthorName = p.AuthorName;
-			author.AuthorImage = p.AuthorImage;
-			author.AuthorAbout = p.AuthorAbout;
-			author.AuthorTitle = p.AuthorTitle;
-			author.Password = p.Password;
-			author.Mail = p.Mail;
-			author.PhoneNumber = p.PhoneNumber;
-			return repoAuthor.Update(author);
+			_authorDal.Insert(t);
+		}
+
+		public void TDelete(Author t)
+		{
+			_authorDal.Delete(t);
+		}
+
+		public void TUpdate(Author t)
+		{
+			_authorDal.Update(t);
 		}
 	}
 }

@@ -15,21 +15,23 @@ namespace PortalProjectMVC.Controllers
 	{
 		// GET: Category
 		CategoryManager cm = new CategoryManager(new EfCategoryDal());
-		public ActionResult Index()
-		{
-			var categoryvalues = cm.GetAll();
-			return View(categoryvalues);
-		}
+
 		[AllowAnonymous]
 		public PartialViewResult BlogDetailsCategoryList()
 		{
-			var categoryvalues = cm.GetAll();
+			var categoryvalues = cm.GetList();
 			return PartialView(categoryvalues);
 		}
 		public ActionResult AdminCategoryList()
 		{
-			var categoryList = cm.GetAll();
+			var categoryList = cm.GetList();
 			return View(categoryList);
+		}
+
+		[HttpPost]
+		public ActionResult AdminCategoryAdd()
+		{
+			return View();
 		}
 		[HttpPost]
 		public ActionResult AdminCategoryAdd(Category category)
@@ -38,7 +40,7 @@ namespace PortalProjectMVC.Controllers
 			ValidationResult results = categoryValidator.Validate(category);
 			if (results.IsValid)
 			{
-				cm.CategoryAddBL(category);
+				cm.TAdd(category);
 				return RedirectToAction("AdminCategoryList");
 			}
 			else
@@ -50,10 +52,11 @@ namespace PortalProjectMVC.Controllers
 			}
 			return View();
 		}
+
 		[HttpGet]
 		public ActionResult CategoryEdit(int id)
 		{
-			Category category = cm.FindCategory(id);
+			Category category = cm.GetByID(id);
 			return View(category);
 		}
 		[HttpPost]
@@ -63,7 +66,7 @@ namespace PortalProjectMVC.Controllers
 			ValidationResult results = categoryValidator.Validate(category);
 			if (results.IsValid)
 			{
-				cm.EditCategory(category);
+				cm.TUpdate(category);
 				return RedirectToAction("AdminCategoryList");
 			}
 			else
@@ -75,6 +78,7 @@ namespace PortalProjectMVC.Controllers
 			}
 			return View();
 		}
+
 		public ActionResult CategoryDelete(int id)
 		{
 			cm.StatusFalseBL(id);

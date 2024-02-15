@@ -1,4 +1,5 @@
 ﻿using BusinessLayer.Concrete;
+using DataAccessLayer.EntityFramework;
 using EntityLayer.Concrete;
 using System;
 using System.Collections.Generic;
@@ -13,33 +14,33 @@ namespace PortalProjectMVC.Controllers
 	public class AboutController : Controller
 	{
 		// GET: About
-		AboutManager aboutManager = new AboutManager();
-		AuthorManager authorManager = new AuthorManager();
+		AboutManager aboutManager = new AboutManager(new EfAboutDal());
+		AuthorManager authorManager = new AuthorManager(new EfAuthorDal());
 		public ActionResult Index()
 		{
-			var abourtContent = aboutManager.GetAll();
+			var abourtContent = aboutManager.GetList();
 			return View(abourtContent);
 		}
 		public PartialViewResult Footer()
 		{
-			var aboutContentList = aboutManager.GetAll();
+			var aboutContentList = aboutManager.GetList();
 			return PartialView(aboutContentList);
 		}
 		public PartialViewResult MeetTheTeam()
 		{
-			var authorList = authorManager.GetAll();
+			var authorList = authorManager.GetList();
 			return PartialView(authorList);
 		}
 		[HttpGet]
 		public ActionResult UpdateAboutList()
 		{
-			var aboutList = aboutManager.GetAll();
+			var aboutList = aboutManager.GetList();
 			return View(aboutList);
 		}
 		[HttpPost]
 		public ActionResult UpdateAbout(About p)
 		{
-			aboutManager.UpdateAboutBM(p);
+			aboutManager.TUpdate(p);
 			return RedirectToAction("UpdateAboutList");
 		}
 	}
